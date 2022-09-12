@@ -14,7 +14,7 @@ class MetaRepository {
             metas.valor, 
             metas.descricao,
             metas.tipo,
-            metas.rendimento,
+            metas.rendimento
           FROM metas
 ''');
 
@@ -51,11 +51,11 @@ class MetaRepository {
 
     db.insert("metas", {
       "titulo": meta.titulo,
-      "periodo": meta.periodo,
+      "periodo": meta.periodo.compareTo(DateTime.now()),
       "valor": meta.valor,
       "descricao": meta.descricao,
-      "tipo": meta.tipo,
-      "rendimento": meta.rendimento
+      "tipo": meta.tipo.index,
+      "rendimento": meta.rendimento.index
     });
   }
 }
