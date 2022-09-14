@@ -7,7 +7,8 @@ import '../models/categorial.dart';
 class TransacaoRepository {
   Future<List<Transacao>> listarTransacoes() async {
     final db = await DatabaseManager().getDatabase();
-    final List<Map<String, dynamic>> rows = await db.rawQuery('''
+    final List<Map<String, dynamic>> rows = await db.rawQuery(
+        '''
           SELECT 
             transacoes.id, 
             transacoes.descricao,
@@ -78,5 +79,17 @@ class TransacaoRepository {
         },
         where: 'id = ?',
         whereArgs: [transacao.id]);
+  }
+
+  Future<double> gerarReceitaTotal() async {
+    final db = await DatabaseManager().getDatabase();
+    final double valorTotal = (await db.rawQuery(
+            '''
+          SELECT SUM(transacoes.valor)
+          FROM transacoes
+'''))
+        as double;
+
+    return valorTotal;
   }
 }

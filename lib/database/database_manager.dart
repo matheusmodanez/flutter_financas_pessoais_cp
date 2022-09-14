@@ -65,6 +65,14 @@ class DatabaseManager {
       'categoriaIcone': 'money',
       'categoriaTipoTransacao': 1
     });
+    await db.insert('metas', {
+      'titulo': 'Ficar Milionário',
+      'periodo': '3600',
+      'valor': '1000000',
+      'descricao': 'Juntar meu primeiro milhão',
+      'tipo': 4,
+      'rendimento': 2
+    });
   }
 
   String get _categorias =>

@@ -1,4 +1,3 @@
-import 'package:financas_pessoais/models/tipo_meta.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

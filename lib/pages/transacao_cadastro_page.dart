@@ -1,4 +1,3 @@
-import 'package:financas_pessoais/models/receita_total.dart';
 import 'package:financas_pessoais/models/tipo_lancamento.dart';
 import 'package:financas_pessoais/models/transacao.dart';
 import 'package:financas_pessoais/repository/categoria_repository.dart';
@@ -30,8 +29,6 @@ class _TransacaoCadastroPageState extends State<TransacaoCadastroPage> {
   Categoria? _categoriaSelecionada;
   TipoTransacao tipoTransacaoSelecionada = TipoTransacao.receita;
   List<Categoria> _categorias = [];
-
-  ReceitaTotal receitaTotal = new ReceitaTotal();
 
   @override
   void initState() {
@@ -133,9 +130,8 @@ class _TransacaoCadastroPageState extends State<TransacaoCadastroPage> {
                     ? 'Receita'
                     : 'Despesa';
 
-            if (tipoTransacao == TipoTransacao.receita) {
-              double total = valor;
-              receitaTotal.setReceitaTotal(total);
+            if (tipoTransacao == TipoTransacao.despesa) {
+              transacao.valor = valor * -1;
             }
 
             try {
