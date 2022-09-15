@@ -267,41 +267,52 @@ class _MetaCadastroPageState extends State<MetaCadastroPage> {
 
   SizedBox _buildSaveButton() {
     return SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-            child: const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('Salvar Meta'),
-            ),
-            onPressed: () async {
-              final isValid = _formKey.currentState!.validate();
-              if (isValid) {
-                final titulo = _tituloController.text;
-                final periodo =
-                    DateFormat('dd/MM/yyyy').parse(_dataController.text);
-                final valor = NumberFormat.currency(locale: 'pt_BR')
-                    .parse(_valorController.text.replaceAll('R\$', ''))
-                    .toDouble();
-                final descricao = _descricaoController.text;
-                var tipo = _tipoMetaSelecionado;
-                var rendimento = tipoRendimentoSelecionado;
+      width: double.infinity,
+      child: ElevatedButton(
+        child: const Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text('Salvar Meta'),
+        ),
+        onPressed: () async {
+          final isValid = _formKey.currentState!.validate();
+          if (isValid) {
+            final titulo = _tituloController.text;
+            final periodo =
+                DateFormat('dd/MM/yyyy').parse(_dataController.text);
+            final valor = NumberFormat.currency(locale: 'pt_BR')
+                .parse(_valorController.text.replaceAll('R\$', ''))
+                .toDouble();
+            final descricao = _descricaoController.text;
+            var tipo = _tipoMetaSelecionado;
+            var rendimento = tipoRendimentoSelecionado;
 
-                final meta = Meta(
-                  titulo: titulo,
-                  periodo: periodo,
-                  valor: valor,
-                  descricao: descricao,
-                  tipo: tipo,
-                  rendimento: rendimento,
-                );
+            final meta = Meta(
+              titulo: titulo,
+              periodo: periodo,
+              valor: valor,
+              descricao: descricao,
+              tipo: tipo,
+              rendimento: rendimento,
+            );
 
+            try {
+              if (widget.metaParaEdicao != null) {
+                meta.id = widget.metaParaEdicao!.id;
+                await _metaRepository.editarMeta(meta);
+              } else {
                 await _metaRepository.criarMeta(meta);
-
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Nova Meta adicionada com sucesso!')));
-
-                Navigator.of(context).pop(true);
               }
-            }));
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Nova Meta adicionada com sucesso!')));
+
+              Navigator.of(context).pop(true);
+            } catch (e) {
+              Navigator.of(context).pop(false);
+            }
+          }
+        },
+      ),
+    );
   }
 }

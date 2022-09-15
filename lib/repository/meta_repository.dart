@@ -58,4 +58,20 @@ class MetaRepository {
       "rendimento": meta.rendimento.index
     });
   }
+
+  Future<int> editarMeta(Meta meta) async {
+    final db = await DatabaseManager().getDatabase();
+    return db.update(
+        "metas",
+        {
+          "titulo": meta.titulo,
+          "periodo": meta.periodo.compareTo(DateTime.now()),
+          "valor": meta.valor,
+          "descricao": meta.descricao,
+          "tipo": meta.tipo.index,
+          "rendimento": meta.rendimento.index
+        },
+        where: 'id = ?',
+        whereArgs: [meta.id]);
+  }
 }
