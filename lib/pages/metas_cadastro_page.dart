@@ -62,6 +62,7 @@ class _MetaCadastroPageState extends State<MetaCadastroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: const Text('Nova Transação'),
       ),
       body: SingleChildScrollView(
@@ -237,7 +238,9 @@ class _MetaCadastroPageState extends State<MetaCadastroPage> {
       },
       items: TipoRendimento.values.map((r) {
         String tipo = '';
-        if (r.name == 'curtoprazo') {
+        if (r.name == 'naoinvestir') {
+          tipo = 'Não Investir';
+        } else if (r.name == 'curtoprazo') {
           tipo = 'Curto Prazo';
         } else if (r.name == 'medioprazo') {
           tipo = 'Médio Prazo';
@@ -269,6 +272,9 @@ class _MetaCadastroPageState extends State<MetaCadastroPage> {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+        ),
         child: const Padding(
           padding: EdgeInsets.all(10.0),
           child: Text('Salvar Meta'),
@@ -287,13 +293,12 @@ class _MetaCadastroPageState extends State<MetaCadastroPage> {
             var rendimento = tipoRendimentoSelecionado;
 
             final meta = Meta(
-              titulo: titulo,
-              periodo: periodo,
-              valor: valor,
-              descricao: descricao,
-              tipo: tipo,
-              rendimento: rendimento,
-            );
+                titulo: titulo,
+                periodo: periodo,
+                valor: valor,
+                descricao: descricao,
+                tipo: tipo,
+                rendimento: rendimento);
 
             try {
               if (widget.metaParaEdicao != null) {

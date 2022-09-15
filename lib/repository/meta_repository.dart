@@ -21,14 +21,13 @@ class MetaRepository {
     return rows
         .map(
           (row) => Meta(
-            id: row['id'],
-            titulo: row['titulo'],
-            periodo: DateTime.fromMillisecondsSinceEpoch(row['periodo']),
-            valor: row['valor'],
-            descricao: row['descricao'],
-            tipo: TipoMeta.values[row['tipo']],
-            rendimento: TipoRendimento.values[row['rendimento']],
-          ),
+              id: row['id'],
+              titulo: row['titulo'],
+              periodo: DateTime.fromMillisecondsSinceEpoch(row['periodo']),
+              valor: row['valor'],
+              descricao: row['descricao'],
+              tipo: TipoMeta.values[row['tipo']],
+              rendimento: TipoRendimento.values[row['rendimento']]),
         )
         .toList();
   }
@@ -65,11 +64,11 @@ class MetaRepository {
         "metas",
         {
           "titulo": meta.titulo,
-          "periodo": meta.periodo.compareTo(DateTime.now()),
+          "periodo": meta.periodo,
           "valor": meta.valor,
           "descricao": meta.descricao,
           "tipo": meta.tipo.index,
-          "rendimento": meta.rendimento.index
+          "rendimento": meta.rendimento.index,
         },
         where: 'id = ?',
         whereArgs: [meta.id]);

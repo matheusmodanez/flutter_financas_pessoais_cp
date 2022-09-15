@@ -67,8 +67,7 @@ class DatabaseManager {
     });
   }
 
-  String get _categorias =>
-      '''
+  String get _categorias => '''
     CREATE TABLE IF NOT EXISTS categorias (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       categoriaDescricao TEXT,
@@ -78,8 +77,7 @@ class DatabaseManager {
     );
   ''';
 
-  String get _transacoes =>
-      '''
+  String get _transacoes => '''
     CREATE TABLE IF NOT EXISTS transacoes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       descricao TEXT,
@@ -92,8 +90,7 @@ class DatabaseManager {
     );
   ''';
 
-  String get _metas =>
-      '''
+  String get _metas => '''
     CREATE TABLE IF NOT EXISTS metas (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT,

@@ -29,7 +29,7 @@ class _MetasListaPage extends State<MetasListaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Metas')),
+      appBar: AppBar(title: const Text('Metas'), backgroundColor: Colors.green),
       body: FutureBuilder<List<Meta>>(
           future: _futureMetas,
           builder: (context, snapshot) {
@@ -40,63 +40,64 @@ class _MetasListaPage extends State<MetasListaPage> {
             }
             if (snapshot.connectionState == ConnectionState.done) {
               final metas = snapshot.data ?? [];
-              return ListView.separated(
-                  itemCount: metas.length,
-                  itemBuilder: (context, index) {
-                    final meta = metas[index];
-                    return Slidable(
-                      endActionPane: ActionPane(
-                        motion: const ScrollMotion(),
-                        children: [
-                          SlidableAction(
-                            onPressed: (context) async {
-                              await _metasRepository.removerMeta(meta.id!);
+              return ListView.builder(
+                itemCount: metas.length,
+                itemBuilder: (context, index) {
+                  final meta = metas[index];
+                  return Slidable(
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) async {
+                            await _metasRepository.removerMeta(meta.id!);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Meta removida com sucesso')));
-                              setState(() {
-                                metas.removeAt(index);
-                              });
-                            },
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: 'Remover',
-                          ),
-                          SlidableAction(
-                            onPressed: (context) async {
-                              var success = await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      MetaCadastroPage(
-                                    metaParaEdicao: meta,
-                                  ),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text('Meta removida com sucesso')));
+                            setState(() {
+                              metas.removeAt(index);
+                            });
+                          },
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Remover',
+                        ),
+                        SlidableAction(
+                          onPressed: (context) async {
+                            var success = await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    MetaCadastroPage(
+                                  metaParaEdicao: meta,
                                 ),
-                              ) as bool?;
+                              ),
+                            ) as bool?;
 
-                              if (success != null && success) {
-                                setState(() {
-                                  carregarMetas();
-                                });
-                              }
-                            },
-                            backgroundColor: Colors.blue,
-                            foregroundColor: Colors.white,
-                            icon: Icons.edit,
-                            label: 'Editar',
-                          ),
-                        ],
-                      ),
-                      child: MetaListItem(meta: meta),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const Divider());
+                            if (success != null && success) {
+                              setState(() {
+                                carregarMetas();
+                              });
+                            }
+                          },
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          icon: Icons.edit,
+                          label: 'Editar',
+                        ),
+                      ],
+                    ),
+                    child: MetaListItem(meta: meta),
+                  );
+                },
+              );
             }
             return Container();
           }),
       floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.greenAccent,
           onPressed: () async {
             bool? metaCadastrada = await Navigator.of(context)
                 .pushNamed('/meta-cadastro') as bool?;

@@ -1,6 +1,5 @@
-import 'package:financas_pessoais/models/tipo_meta.dart';
+import 'package:financas_pessoais/components/standard_card.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../models/meta.dart';
 
@@ -10,19 +9,41 @@ class MetaListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(meta.titulo),
-      subtitle: Text(DateFormat('MM/dd/yyyy').format(meta.periodo)),
-      trailing: Text(
-        NumberFormat.simpleCurrency(locale: 'pt_BR').format(meta.valor),
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 15,
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 15,
+        right: 15,
+        top: 20,
+      ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/meta-detalhes', arguments: meta);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.green.withOpacity(0.8),
+                  Colors.green.withOpacity(0.2),
+                ],
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: StandardCard(
+              titulo: meta.titulo,
+              periodo: meta.periodo,
+              valor: meta.valor,
+              tipo: meta.tipo.name,
+              descricao: meta.descricao,
+              rendimento: meta.rendimento.name,
+            ),
+          ),
         ),
       ),
-      onTap: () {
-        Navigator.pushNamed(context, '/meta-detalhes', arguments: meta);
-      },
     );
   }
 }

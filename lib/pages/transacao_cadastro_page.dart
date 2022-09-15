@@ -31,7 +31,7 @@ class _TransacaoCadastroPageState extends State<TransacaoCadastroPage> {
   TipoTransacao tipoTransacaoSelecionada = TipoTransacao.receita;
   List<Categoria> _categorias = [];
 
-  ReceitaTotal receitaTotal = new ReceitaTotal();
+  ReceitaTotal receitaTotal = ReceitaTotal();
 
   @override
   void initState() {

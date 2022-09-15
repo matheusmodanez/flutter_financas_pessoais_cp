@@ -1,5 +1,4 @@
 import 'package:financas_pessoais/components/transacao_list_item.dart';
-import 'package:financas_pessoais/models/receita_total.dart';
 import 'package:financas_pessoais/models/transacao.dart';
 import 'package:financas_pessoais/pages/transacao_cadastro_page.dart';
 import 'package:financas_pessoais/repository/transacao_repository.dart';

@@ -1,1 +1,1 @@
-enum TipoRendimento { curtoprazo, medioprazo, longoprazo }
+enum TipoRendimento { naoinvestir, curtoprazo, medioprazo, longoprazo }
