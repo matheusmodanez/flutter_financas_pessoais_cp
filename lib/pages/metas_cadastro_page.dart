@@ -63,7 +63,7 @@ class _MetaCadastroPageState extends State<MetaCadastroPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Text('Nova Transação'),
+        title: const Text('Cadastrar Nova Meta'),
       ),
       body: SingleChildScrollView(
         child: Form(

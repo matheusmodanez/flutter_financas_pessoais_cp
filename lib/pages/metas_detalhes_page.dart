@@ -55,7 +55,7 @@ class _MetaDetalhesPage extends State<MetaDetalhesPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.green,
         title: Text('Detalhes da Meta: ${meta.titulo}'),
       ),
       body: Padding(
